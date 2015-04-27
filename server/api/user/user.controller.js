@@ -7,8 +7,8 @@ var jwt = require('jsonwebtoken');
 var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-//var transporter = nodemailer.createTransport();
-
+var transporter = nodemailer.createTransport();
+/**
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -16,7 +16,7 @@ var transporter = nodemailer.createTransport({
         pass: 'AIzaSyAh-_NeQswyfqHXfx5dU96rEKtRNLjtahI'
     }
 });
-
+**/
 
 var validationError = function(res, err) {
     return res.json(422, err);
@@ -117,14 +117,16 @@ exports.forgotPassword = function(req, res) {
             });
         },
         function(token, user, done) {
-            // email reset url
-            //console.log('http://' + req.headers.host + '/api/reset/' + token);
-
+           
             transporter.sendMail({
                 from: 'msuhealthservices@gmail.com',
                 to: req.body.email,
                 subject: 'Password Reset',
                 text: 'Follow this link to reset your password. http://' + req.headers.host + '/api/reset/' + token + ' If you did not request this link, please disreguard.'
+            }, function(err) {
+                if (err) {
+                    return res.send(500);
+                }
             });
 
             return res.send(200);
