@@ -117,10 +117,10 @@ exports.forgotPassword = function(req, res) {
             });
         },
         function(token, user, done) {
-           
+
             transporter.sendMail({
                 from: 'msuhealthservices@gmail.com',
-                to: req.body.email,
+                to: '' + req.body.email,
                 subject: 'Password Reset',
                 text: 'Follow this link to reset your password. http://' + req.headers.host + '/api/reset/' + token + ' If you did not request this link, please disreguard.'
             }, function(err) {
