@@ -95,6 +95,8 @@ exports.changePassword = function(req, res, next) {
  * Send user a reset password link to their email
  */
 exports.forgotPassword = function(req, res) {
+    var email = req.body.email.toString();
+
     async.waterfall([
         function(done) {
             crypto.randomBytes(20, function(err, buf) {
@@ -120,7 +122,7 @@ exports.forgotPassword = function(req, res) {
 
             transporter.sendMail({
                 from: 'msuhealthservices@gmail.com',
-                to: '' + req.body.email,
+                to: email,
                 subject: 'Password Reset',
                 text: 'Follow this link to reset your password. http://' + req.headers.host + '/api/reset/' + token + ' If you did not request this link, please disreguard.'
             }, function(err) {
