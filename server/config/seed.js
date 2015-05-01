@@ -7,7 +7,7 @@
 
 var Events = require('../api/events/events.model');
 var User = require('../api/user/user.model');
-var Reflections = require('../api/reflections/reflections.model');
+var Stories = require('../api/stories/stories.model');
 var rimraf = require('rimraf');
 var path = require('path');
 var mkdirp = require('mkdirp');
@@ -27,8 +27,8 @@ Events.find({}).remove(function() {
     });
 });
 
-Reflections.find({}).remove(function() {
-    Reflections.create({
+Stories.find({}).remove(function() {
+    Stories.create({
         name: 'Test Reflection',
         content: 'Test Content About Reflection',
         date: Date.now(),

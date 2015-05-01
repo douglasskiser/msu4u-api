@@ -1,5 +1,5 @@
 var express = require('express');
-var controller = require('./reflections.controller');
+var controller = require('./stories.controller');
 
 var router = express.Router();
 

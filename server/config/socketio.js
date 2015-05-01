@@ -22,7 +22,7 @@ function onConnect(socket) {
   require('../api/user/user.socket').register(socket);
   //require('../api/upload/upload.socket').register(socket);
   require('../api/events/events.socket').register(socket);
-  require('../api/reflections/reflections.socket').register(socket);
+  require('../api/stories/stories.socket').register(socket);
 }
 
 module.exports = function (socketio) {

@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var ReflectionsSchema = new Schema({
+var StoriesSchema = new Schema({
     name: String,
     content: String,
     date: {
@@ -20,4 +20,4 @@ var ReflectionsSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Reflections', ReflectionsSchema);
+module.exports = mongoose.model('Stories', StoriesSchema);

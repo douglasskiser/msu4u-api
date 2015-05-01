@@ -3,11 +3,11 @@
 var _ = require('lodash');
 var path = require('path');
 var fs = require('fs');
-var Reflections = require('./reflections.model');
+var Stories = require('./stories.model');
 
-// Get list of Reflections
+// Get list of Stories
 exports.index = function(req, res) {
-    Reflections.find({temp: false}, function(err, refs) {
+    Stories.find({temp: false}, function(err, refs) {
         if (err) {
             return res.send(500, err);
         }
@@ -16,7 +16,7 @@ exports.index = function(req, res) {
 };
 
 exports.temp = function(req, res) {
-    Reflections.find({
+    Stories.find({
         temp: true
     }, function(err, refs) {
         if (err) {
@@ -27,7 +27,7 @@ exports.temp = function(req, res) {
 };
 
 exports.removeFromTemp = function(req, res) {
-    Reflections.findById(req.params.id, function(err, ref) {
+    Stories.findById(req.params.id, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }
@@ -43,7 +43,7 @@ exports.removeFromTemp = function(req, res) {
 };
 
 exports.active = function(req, res) {
-    Reflections.find({
+    Stories.find({
         active: true
     }, function(err, refs) {
         if (err) {
@@ -55,7 +55,7 @@ exports.active = function(req, res) {
 
 // Creates a new event obj in the DB.
 exports.create = function(req, res) {
-    Reflections.create(req.body, function(err, ref) {
+    Stories.create(req.body, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }
@@ -65,7 +65,7 @@ exports.create = function(req, res) {
 
 // Get a single reflection
 exports.getOne = function(req, res) {
-    Reflections.findById(req.params.id, function(err, ref) {
+    Stories.findById(req.params.id, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }
@@ -78,7 +78,7 @@ exports.getOne = function(req, res) {
 
 // Update a single event
 exports.update = function(req, res) {
-    Reflections.findById(req.params.id, function(err, ref) {
+    Stories.findById(req.params.id, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }
@@ -103,7 +103,7 @@ exports.update = function(req, res) {
 };
 
 exports.activate = function(req, res) {
-    Reflections.findById(req.params.id, function(err, ref) {
+    Stories.findById(req.params.id, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }
@@ -123,7 +123,7 @@ exports.activate = function(req, res) {
 };
 
 exports.deactivate = function(req, res) {
-    Reflections.findById(req.params.id, function(err, ref) {
+    Stories.findById(req.params.id, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }
@@ -144,7 +144,7 @@ exports.deactivate = function(req, res) {
 
 // Remove a single event
 exports.remove = function(req, res) {
-    Reflections.findByIdAndRemove(req.params.id, function(err, ref) {
+    Stories.findByIdAndRemove(req.params.id, function(err, ref) {
         if (err) {
             return res.send(500, err);
         }

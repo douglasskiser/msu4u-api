@@ -47,25 +47,25 @@ exports.deleteImage = function(req, res) {
         fs.unlinkSync(filePath);
 
         Events.findById(req.params.id, function(err, evt) {
-        if (err) {
-            return res.send(500, err);
-        }
-        if (!evt) {
-            return res.send(404);
-        }
-
-        evt.image = '';
-
-        evt.save(function(err) {
             if (err) {
                 return res.send(500, err);
             }
-            return res.send(200);
+            if (!evt) {
+                return res.send(404);
+            }
+
+            evt.image = '';
+
+            evt.save(function(err) {
+                if (err) {
+                    return res.send(500, err);
+                }
+                return res.send(200);
+            });
         });
     });
-    });
 
-    
+
 };
 
 exports.active = function(req, res) {
@@ -172,10 +172,40 @@ exports.deactivate = function(req, res) {
 
 // Remove a single event
 exports.remove = function(req, res) {
-    Events.findByIdAndRemove(req.params.id, function(err, evt) {
+
+    Events.findById(req.params.id, function(err, evt) {
         if (err) {
             return res.send(500, err);
         }
-        return res.send(204);
+
+        if (evt.image.length < 0) {
+            var filePath = path.join(__dirname, '/../../uploads/' + evt.image);
+
+            fs.exists(filePath, function(exists) {
+                if (!exists) {
+                    return res.send(404);
+                }
+
+                fs.unlinkSync(filePath);
+
+                Events.findByIdAndRemove(req.params.id, function(err, evt) {
+                    if (err) {
+                        return res.send(500, err);
+                    }
+                    return res.send(204);
+                });
+            });
+        }
+        else {
+            Events.findByIdAndRemove(req.params.id, function(err, evt) {
+                    if (err) {
+                        return res.send(500, err);
+                    }
+                    return res.send(204);
+                });
+        }
+
+
     });
+
 };
